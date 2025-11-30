@@ -1,0 +1,12 @@
+{
+  "name": "Harlan's Memory Storage",
+  "description": "After each puzzle, Harlan stores the solution in vector memory via MCP",
+  "trigger": {
+    "type": "on_file_save",
+    "filePattern": "components/scenes/*.tsx"
+  },
+  "action": {
+    "type": "agent_message",
+    "message": "Harlan needs to store this puzzle solution in his vector memory database. Extract the key learning and store it using the vector-memory MCP extension."
+  }
+}

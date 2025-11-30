@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "replicate-image-gen": {
+      "command": "uvx",
+      "args": ["mcp-server-replicate"],
+      "env": {
+        "REPLICATE_API_KEY": "${REPLICATE_API_KEY}"
+      },
+      "disabled": true,
+      "autoApprove": ["generate_image"]
+    },
+    "pinecone-memory": {
+      "command": "uvx",
+      "args": ["mcp-server-pinecone"],
+      "env": {
+        "PINECONE_API_KEY": "${PINECONE_API_KEY}"
+      },
+      "disabled": true,
+      "autoApprove": ["store_memory", "query_memory"]
+    },
+    "blockchain-vows": {
+      "command": "node",
+      "args": ["${workspaceFolder}/mcp-servers/blockchain-vows-server.js"],
+      "disabled": false,
+      "autoApprove": ["check_vow", "record_vow"]
+    }
+  }
+}

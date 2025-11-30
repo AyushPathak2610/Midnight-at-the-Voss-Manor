@@ -1,0 +1,16 @@
+{
+  "name": "Ghost Council Debate",
+  "description": "Triggers when player asks for puzzle hints - all 5 ghost agents debate in real-time",
+  "trigger": {
+    "type": "manual",
+    "buttonLabel": "🔮 Summon Ghost Council"
+  },
+  "action": {
+    "type": "agent_message",
+    "message": "The player needs help with the current puzzle. Invoke all 5 ghost agents (Elara, Harlan, Mira, Theo, Selene) to debate the best hint. Each agent should respond based on their unique personality and MCP capabilities. Show the full debate transcript, then provide consensus."
+  },
+  "context": {
+    "includeFiles": ["lib/agents/ghostAgents.ts"],
+    "includeTerminal": false
+  }
+}

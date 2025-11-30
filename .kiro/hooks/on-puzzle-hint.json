@@ -1,0 +1,16 @@
+{
+  "name": "Ghost Council Debate Trigger",
+  "description": "When player asks for hint, trigger all 5 ghost agents to debate",
+  "trigger": {
+    "type": "manual",
+    "buttonLabel": "Ask Ghost Council"
+  },
+  "action": {
+    "type": "agent-message",
+    "message": "Invoke the ghost council debate for the current puzzle. Each ghost agent should provide their perspective based on their personality, then synthesize a consensus hint. Show the full debate to the player."
+  },
+  "context": {
+    "includeFiles": ["lib/agents/ghostAgents.ts"],
+    "includeVariables": ["currentPuzzle", "playerProgress"]
+  }
+}

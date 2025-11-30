@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "blockchain-vows": {
+      "command": "node",
+      "args": ["mcp-servers/blockchain-vows-server.js"],
+      "description": "Selene's vow verification ledger - checks if promises were kept",
+      "disabled": false,
+      "autoApprove": ["check_vow", "record_vow"]
+    },
+    "replicate-image-gen": {
+      "command": "uvx",
+      "args": ["mcp-replicate"],
+      "env": {
+        "REPLICATE_API_TOKEN": "${REPLICATE_API_KEY}"
+      },
+      "description": "Mira's crayon drawing generator - creates childlike art when happy",
+      "disabled": false,
+      "autoApprove": ["run_model"]
+    },
+    "pinecone-memory": {
+      "command": "uvx",
+      "args": ["mcp-pinecone"],
+      "env": {
+        "PINECONE_API_KEY": "${PINECONE_API_KEY}"
+      },
+      "description": "Harlan's vector memory storage - remembers puzzle solutions",
+      "disabled": false,
+      "autoApprove": ["query", "upsert"]
+    }
+  }
+}
