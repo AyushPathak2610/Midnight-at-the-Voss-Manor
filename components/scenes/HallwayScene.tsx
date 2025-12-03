@@ -53,8 +53,8 @@ export default function HallwayScene({ onComplete }: HallwaySceneProps) {
   ]
 
   useEffect(() => {
-    playSceneMusic('chapel')
-  }, [])
+    playSceneMusic('act1_4')
+  }, [playSceneMusic])
 
   useEffect(() => {
     const stageKey = `stage:${stage}`
@@ -114,14 +114,18 @@ export default function HallwayScene({ onComplete }: HallwaySceneProps) {
 
   const handleAskHint = () => {
     setShowingHint(true)
-    const hints = [
-      "Forgiveness navigates thorns... What fixes running away? Say sorry.",
-      "Love requires bravery, not perfection.",
-      "The path forward is through honesty and courage.",
-      "Trust is the foundation that binds souls together.",
-      "Understanding opens doors that force cannot."
-    ]
-    const hint = hints[currentWall] || hints[0]
+    // Map hints to questions - each hint corresponds to the correct answer
+    const hintMap: { [key: string]: string } = {
+      "What heals a broken vow?": "Forgiveness navigates thorns... What fixes running away? Say sorry.",
+      "What does love require?": "Love requires bravery, not perfection.",
+      "How do you fix running away?": "The path forward is through honesty and courage.",
+      "What breaks the cycle of pain?": "Forgiveness breaks the cycle. Let go of anger.",
+      "What binds two souls?": "Trust is the foundation that binds souls together.",
+      "What opens the locked door?": "Understanding opens doors that force cannot."
+    }
+    
+    const currentQuestion = thornyWalls[currentWall].question
+    const hint = hintMap[currentQuestion] || "Listen to your heart..."
     setCurrentHint(hint)
     speechService.speak(hint, 'theo')
     
@@ -144,7 +148,7 @@ export default function HallwayScene({ onComplete }: HallwaySceneProps) {
           }
           alt="Hallway"
           fill
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: stage === '5_1_1' ? 'contain' : 'cover' }}
           priority
         />
       </div>

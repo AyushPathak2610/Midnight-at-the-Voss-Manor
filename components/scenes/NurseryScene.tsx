@@ -22,10 +22,10 @@ export default function NurseryScene({ onComplete }: NurserySceneProps) {
   // Use speechService directly to avoid re-renders
   const { playSceneMusic } = useMusic()
 
-  // Start scene music
+  // Continue Act 1-4 music
   useEffect(() => {
-    playSceneMusic('nursery')
-  }, [])
+    playSceneMusic('act1_4')
+  }, [playSceneMusic])
 
   // Speak narration/dialogue when stage changes (only once per stage)
   useEffect(() => {

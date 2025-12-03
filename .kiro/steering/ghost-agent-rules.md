@@ -18,13 +18,14 @@ When implementing ghost debates:
 - Selene demands honesty, Theo seeks forgiveness
 - Final consensus should feel earned, not forced
 
-## MCP Integration Points
+## Voice Acting Integration
 
-- **Mira**: Uses image-gen MCP to draw crayon pictures when happy
-- **Harlan**: Uses vector-memory MCP to store/retrieve puzzle solutions
-- **Selene**: Uses blockchain MCP to verify "vows" and promises
-- **Theo**: Uses text-to-speech MCP for dramatic voice lines
-- **Elara**: Uses sentiment-analysis MCP to gauge player emotions
+- Each agent has unique Azure TTS voice (or browser TTS fallback)
+- **Elara**: Soft, maternal (en-US-JennyNeural)
+- **Harlan**: Deep, confused (en-US-GuyNeural)
+- **Mira**: High-pitched, childlike (en-US-AriaNeural)
+- **Theo**: Dramatic, passionate (en-US-DavisNeural)
+- **Selene**: Cold, elegant (en-US-SaraNeural)
 
 ## Code Style
 

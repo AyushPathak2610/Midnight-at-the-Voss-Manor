@@ -24,16 +24,16 @@
     └────────┘ └────────┘
          ↓
 ┌─────────────────────────────────────────┐
-│         Groq API (llama-3.3-70b)        │
+│    Groq API (llama-3.3-70b-versatile)   │
 └─────────────────────────────────────────┘
 ```
 
-### MCP Extension Layer
+### Multi-Modal AI Stack
 ```
 ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│   Replicate  │    │   Pinecone   │    │  Blockchain  │
-│  Image Gen   │    │    Vector    │    │     Vows     │
-│  (for Mira)  │    │  (for Harlan)│    │ (for Selene) │
+│  Azure TTS   │    │    Gemini    │    │   Suno AI    │
+│  (Voices)    │    │   (Images)   │    │   (Music)    │
+│  6 neural    │    │  26 scenes   │    │  6 scores    │
 └──────────────┘    └──────────────┘    └──────────────┘
 ```
 
@@ -51,13 +51,13 @@
 **Property**: The debate must produce a single consensus hint within 5 seconds.
 **Verification**: Timeout on API calls; Elara synthesizes final consensus.
 
-### P4: MCP Capability Isolation
-**Property**: Each ghost can only access their designated MCP tools.
-**Verification**: MCP routing based on `agent.mcpCapabilities` array.
+### P4: Voice Consistency
+**Property**: Each agent must use their designated voice consistently.
+**Verification**: Voice mapping in speechService.ts enforces character-voice pairing.
 
 ### P5: Graceful Degradation
-**Property**: System works even if MCP extensions fail.
-**Verification**: Fallback responses defined for each agent.
+**Property**: System works even if Azure TTS fails.
+**Verification**: Fallback to browser TTS; game remains playable.
 
 ## Data Flow
 
@@ -70,13 +70,13 @@
 6. Elara synthesizes consensus from all perspectives
 7. Consensus displayed as final hint
 
-### MCP Integration Flow (Example: Mira's Drawing)
-1. Mira's agent response indicates happiness (positive sentiment)
-2. Kiro hook detects positive sentiment in Mira's message
-3. Hook triggers `generate-crayon-images.js` script
-4. Script calls Replicate MCP with prompt based on Mira's message
-5. Generated image saved to `public/images/mira-drawings/`
-6. Image displayed in UI with crayon effect overlay
+### Voice Acting Flow
+1. Agent generates text response via Groq API
+2. speechService.speak() called with text and character name
+3. If Azure TTS configured: Generate audio with character's neural voice
+4. If not configured: Use browser's built-in TTS
+5. Audio cached to avoid re-generation
+6. Speech queued to prevent overlapping dialogue
 
 ## Scene Structure
 
@@ -96,8 +96,9 @@ interface Scene {
 1. **Intro**: Forest → Gate → Enter mansion (no puzzle)
 2. **Foyer**: Meet Elara → Tapestry puzzle → Unlock Study
 3. **Study**: Meet Harlan → Neural maze puzzle → Unlock Nursery
-4. **Nursery**: Meet Mira → Love harvest puzzle → Unlock Chapel
-5. **Chapel**: All ghosts → Vow ritual → Final debate → Ending
+4. **Nursery**: Meet Mira → Love harvest puzzle → Unlock Hallway
+5. **Hallway**: Meet Theo & Selene → Rose door maze → Unlock Chapel
+6. **Chapel**: All ghosts reunite → Vow ritual → Family debate → Ending
 
 ## Technical Decisions
 

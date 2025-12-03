@@ -2,10 +2,11 @@
 
 class MusicService {
   private currentMusic: HTMLAudioElement | null = null
+  private currentTrack: string | null = null // Track which music is playing
   private elevenLabsApiKey: string | null = null
   private musicCache: Map<string, string> = new Map()
   private enabled: boolean = true
-  private volume: number = 0.3 // Lower volume for background
+  private volume: number = 0.15 // Very low volume so it doesn't overpower dialogues
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -68,16 +69,38 @@ class MusicService {
     }
   }
 
-  async playSceneMusic(scene: 'intro' | 'foyer' | 'study' | 'nursery' | 'chapel'): Promise<void> {
+  async playSceneMusic(scene: 'intro' | 'act1_4' | 'act5' | 'finale'): Promise<void> {
     if (!this.enabled) {
       return
     }
 
-    // Stop current music
-    this.stop()
+    // If same track is already playing, don't restart it
+    if (this.currentTrack === scene && this.currentMusic && !this.currentMusic.paused) {
+      console.log(`Music: "${scene}" already playing, continuing...`)
+      return
+    }
 
-    // Try to use pre-generated local file first
-    const audioUrl = `/audio/music/${scene}.mp3`
+    // Different track, stop current music
+    if (this.currentTrack !== scene) {
+      this.stop()
+    }
+
+    // Map scene to audio file
+    const audioFiles: Record<string, string> = {
+      'intro': '/audio/music/intro.m4a',
+      'act1_4': '/audio/music/Act1_4.m4a',
+      'act5': '/audio/music/act5.mp3',
+      'finale': '/audio/music/finale.mp3'
+    }
+
+    const audioUrl = audioFiles[scene]
+    if (!audioUrl) {
+      console.warn(`Music: No audio file for scene "${scene}"`)
+      return
+    }
+    
+    // Remember which track we're playing
+    this.currentTrack = scene
     
     // Check if file exists before trying to play
     try {
@@ -138,6 +161,7 @@ class MusicService {
       this.currentMusic.pause()
       this.currentMusic = null
     }
+    this.currentTrack = null
   }
 
   setVolume(volume: number) {
@@ -165,7 +189,7 @@ export const musicService = new MusicService()
 
 // Helper hook for React components
 export function useMusic() {
-  const playSceneMusic = (scene: 'intro' | 'foyer' | 'study' | 'nursery' | 'chapel') => {
+  const playSceneMusic = (scene: 'intro' | 'act1_4' | 'act5' | 'finale') => {
     return musicService.playSceneMusic(scene)
   }
 

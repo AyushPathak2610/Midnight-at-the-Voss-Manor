@@ -19,10 +19,10 @@ export default function ChapelScene({ onDebate }: ChapelSceneProps) {
   // Use speechService directly to avoid re-renders
   const { playSceneMusic } = useMusic()
 
-  // Start scene music
+  // Start Act 5 music
   useEffect(() => {
-    playSceneMusic('chapel')
-  }, [])
+    playSceneMusic('act5')
+  }, [playSceneMusic])
 
   // Speak narration/dialogue when stage changes (only once per stage)
   useEffect(() => {
@@ -61,6 +61,8 @@ export default function ChapelScene({ onDebate }: ChapelSceneProps) {
       }
       speakSequentially()
     } else if (stage === 'ending') {
+      // Play finale music
+      playSceneMusic('finale')
       speechService.speak("The crystal's light swells, brilliant and warm, wrapping around the five souls like an embrace. In that radiance, they are whole again. Not bound by wires or code, but by something far stronger: forgiveness, love, and the courage to let go. The mansion sighs, releasing its ghosts. And as dawn breaks through the stained glass, the Voss family finally rests. Together. At peace.", 'narrator')
     }
   }, [stage])
@@ -73,6 +75,9 @@ export default function ChapelScene({ onDebate }: ChapelSceneProps) {
   }, [])
 
   const triggerFamilyReflection = async () => {
+    // Stop any ongoing speech from reunion scene
+    speechService.stop()
+    
     setReflecting(true)
     setStage('reflection')
     setReflectionMessages([])

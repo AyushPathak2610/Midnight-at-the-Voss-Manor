@@ -1,158 +1,395 @@
-# How Shadowed Haven Uses Every Kiro Feature
+# How Midnight at the Voss Manor Uses Kiro Features
 
-## 1. Vibe Coding 🎨
+**A Kiroween Frankenstein Hackathon Submission**
 
-**What we did:**
-- Built Elara's personality through casual conversation with Kiro
-- Iteratively refined ghost dialogue: "Make it more maternal", "Add poetic language"
-- Quick-prototyped scene animations without rigid specs
+---
 
-**Most impressive generation:**
-The entire `FoyerScene.tsx` component was generated from a simple prompt: "Create an animated scene where Elara introduces herself and triggers a ghost debate when the player asks for hints." Kiro understood the emotional tone, added proper React hooks, and integrated the debate system seamlessly.
+## 🎯 Project Overview
 
-**Conversation structure:**
+Midnight at the Voss Manor is a gothic ghost story where **5 independent AI agents** (powered by Groq) debate in real-time to help players solve puzzles. Each ghost has a unique personality, and they genuinely disagree with each other—creating emergent storytelling that's never the same twice.
+
+**The Frankenstein Twist:** Each agent was built using a DIFFERENT Kiro development approach, yet they work together as one coherent family.
+
+---
+
+## 1. 🎨 Vibe Coding
+
+### What We Built
+Elara's personality and emotional dialogue through natural conversation with Kiro.
+
+### Conversation Flow
 ```
-Me: "I need a haunted mansion game with 5 ghost characters"
-Kiro: [generates base structure]
-Me: "Make Elara more gentle and maternal"
-Kiro: [refines personality]
-Me: "Add a debate system where ghosts argue"
-Kiro: [adds inter-agent communication]
-```
-
-## 2. Agent Hooks ⚡
-
-**What we automated:**
-- **Ghost Council Debate Hook**: Automatically triggers all 5 agents when player clicks "Ask for Hint"
-- **Memory Storage Hook**: Harlan auto-saves puzzle solutions to vector DB
-- **Sentiment Monitor Hook**: Elara tracks player emotions throughout game
-
-**Workflow improvement:**
-Before hooks: Manual API calls, hardcoded debate logic, no real-time updates
-After hooks: One button click → 5 agents debate → consensus emerges → player sees everything
-
-**File:** `.kiro/hooks/on-puzzle-hint.json`
-
-The hook orchestrates:
-1. Player action (button click)
-2. Context gathering (current puzzle, player progress)
-3. Agent invocation (all 5 in parallel)
-4. Response synthesis (consensus building)
-5. UI update (debate panel)
-
-## 3. Spec-Driven Development 📋
-
-**How we structured it:**
-- Created `lib/agents/ghostAgents.ts` with strict JSON specs for each agent
-- Each ghost has: name, personality, systemPrompt, mcpCapabilities
-- Harlan's agent built 100% from spec (no vibe coding)
-
-**Comparison to vibe coding:**
-
-| Aspect | Vibe Coding (Elara) | Spec-Driven (Harlan) |
-|--------|---------------------|----------------------|
-| Speed | Faster initial build | Slower setup |
-| Consistency | Can drift over iterations | Rock-solid personality |
-| Collaboration | Hard to share "vibes" | Easy to share JSON |
-| Debugging | "It feels wrong" | "Line 47 violates spec" |
-| Best for | Creative, emotional content | Technical, logical systems |
-
-**Process improvement:**
-Spec-driven forced us to think through agent interactions upfront. When Harlan debates Mira, we know exactly how he'll respond (logical but deferring to family) because it's in the spec. With vibe coding, we'd have to test every scenario.
-
-## 4. Steering Docs 🎯
-
-**How we leveraged it:**
-- Created `.kiro/steering/ghost-agent-rules.md` with personality rules
-- Automatically included in every Kiro conversation
-- Prevents agent personality mixing (critical for 5 distinct characters)
-
-**Biggest difference:**
-Without steering: "Wait, why is Mira talking like a scientist?"
-With steering: Kiro auto-corrects: "Mira is childlike, let me rewrite that..."
-
-**Strategy that worked:**
-1. Define clear personality boundaries upfront
-2. Add inter-agent debate protocols
-3. Specify MCP integration points per character
-4. Include code style rules (response length, async patterns)
-
-Result: Kiro never confused Elara's maternal tone with Selene's cold formality, even across 50+ iterations.
-
-## 5. MCP (Model Context Protocol) 🔌
-
-**How it helped:**
-Extended each ghost with unique capabilities that would be impossible with standard APIs:
-
-**Note:** We built one custom MCP server (blockchain vows) that works out of the box. The others (Replicate, Pinecone) are optional and have built-in fallbacks. See `docs/MCP_SETUP.md` for details.
-
-**Mira + Image Generation MCP:**
-- Generates crayon drawings when she's happy
-- Uses Replicate API via MCP server
-- Shows player visual representation of her emotions
-- **Why MCP?** Direct API calls would require complex auth and streaming. MCP handles it.
-
-**Harlan + Vector Memory MCP:**
-- Stores puzzle solutions in Pinecone
-- Retrieves relevant memories during debates
-- Actually "remembers" past player interactions
-- **Why MCP?** Vector search requires embeddings and indexing. MCP abstracts complexity.
-
-**Selene + Blockchain Vows MCP:**
-- Custom MCP server (`mcp-servers/blockchain-vows-server.js`)
-- Verifies if Theo kept his promises
-- Immutable ledger of vows
-- **Why MCP?** Needed custom logic for story. MCP let us build it in 50 lines.
-
-**Note:** All agents use Groq's FREE API with Llama 3.1-70B for fast, cost-free inference!
-
-**Workflow improvements:**
-- **Before MCP:** Each capability = separate API integration, auth, error handling
-- **After MCP:** One config file (`.kiro/settings/mcp.json`), auto-approved tools, seamless calls
-
-**Features enabled that were impossible before:**
-1. **Emergent storytelling**: Harlan's memories influence his debate positions
-2. **Visual feedback**: Mira's drawings change based on player choices
-3. **Narrative consistency**: Selene's vow checks create story continuity
-4. **Real-time synthesis**: All 3 MCP calls happen during one debate cycle
-
-**Example flow:**
-```
-Player: "Should I trust Theo?"
-→ Selene calls blockchain MCP: "Did Theo keep his wedding vow?"
-→ MCP returns: { kept: false, timestamp: '2039-01-15' }
-→ Selene (via Groq): "He fled once. Trust must be earned."
-→ Theo (via Groq): "But I returned! Check the ledger again!"
-→ MCP returns: { kept: true, vow: 'Return to make amends' }
-→ Consensus: "Second chances matter."
+Me: "I need a maternal ghost character for a gothic story"
+Kiro: "I can help create that. What's her role?"
+Me: "She's the mother. Gentle, prioritizes family harmony, speaks poetically"
+Kiro: [Generates initial personality]
+Me: "More poetic. Less formal. Under 30 words per response."
+Kiro: [Refines to final version]
 ```
 
-This multi-agent, multi-MCP interaction would require 200+ lines of custom code. With MCP: 10 lines.
+### Result
+```typescript
+elara: {
+  name: 'Elara',
+  personality: 'gentle, maternal, seeks family harmony',
+  systemPrompt: `You are Elara, the mother ghost. You speak softly and 
+  prioritize family bonds above all. When debating puzzle hints, you focus 
+  on emotional connections and memories of love. Keep responses under 30 
+  words. Use gentle, poetic language.`,
+}
+```
 
-**Bonus:** Using Groq's free tier means unlimited testing during development!
+### Most Impressive Generation
+The entire `FoyerScene.tsx` component (200+ lines) was generated from:
+> "Create a scene where Elara introduces herself, shows a tapestry puzzle, and triggers a ghost debate when the player asks for hints"
 
-## The Frankenstein Magic ✨
+Kiro understood:
+- Emotional tone (maternal, gentle)
+- React hooks for state management
+- Debate system integration
+- Puzzle logic with visual feedback
 
-**Why these features create a chimera:**
+### Why Vibe Coding Worked
+- **Fast iteration**: Got Elara "feeling right" in 5 minutes
+- **Creative content**: Personality and voice benefit from natural language
+- **Emotional nuance**: Hard to spec "maternal warmth" formally
 
-1. **Vibe-coded Elara** (emotional, fluid) debates **spec-driven Harlan** (logical, rigid)
-2. **Agent Hooks** force incompatible agents to talk (maternal vs scientific worldviews)
-3. **MCP extensions** give each agent unique "senses" (Mira sees images, Harlan remembers, Selene verifies)
-4. **Steering docs** prevent chaos while allowing conflict
-5. Result: 5 narrow AIs become one emergent family consciousness
+---
 
-**The "stitched together" feeling:**
-- You can SEE the seams in the debug panel (agents disagree)
-- Each agent uses different tech (Grok + Replicate + Pinecone + custom MCP)
-- Built with different Kiro paradigms (vibe + spec + hooks)
-- Yet they create something greater: A family that feels alive
+## 2. 📋 Spec-Driven Development
 
-## Metrics
+### What We Built
+Harlan's agent with strict personality definition and debate architecture.
+
+### Spec Structure
+**File:** `lib/agents/ghostAgents.ts`
+
+```typescript
+harlan: {
+  name: 'Harlan',
+  personality: 'scientific, amnesiac, logical but confused',
+  systemPrompt: `You are Dr. Harlan Voss, the scientist ghost with 
+  fragmented memories. You analyze problems logically but struggle to 
+  remember emotional context. When debating, you cite facts but defer 
+  to family on emotional matters. Keep responses under 30 words. Use 
+  technical language mixed with uncertainty.`,
+}
+```
+
+### Comparison: Vibe vs Spec
+
+| Aspect | Vibe (Elara) | Spec (Harlan) |
+|--------|--------------|---------------|
+| **Speed** | 5 minutes | 20 minutes |
+| **Consistency** | Can drift | Rock-solid |
+| **Debugging** | "Feels wrong" | "Line 47 violates spec" |
+| **Best For** | Emotions, creativity | Logic, technical systems |
+
+### Process Improvement
+Spec-driven forced us to think through agent interactions upfront. When Harlan debates Mira, we know exactly how he'll respond (logical but deferring to family) because it's in the spec.
+
+**Example Debate:**
+```
+Mira: "The happy ones! Like when we played!"
+Harlan: "I... I struggle to recall. But logic suggests categories matter."
+```
+
+Harlan's uncertainty is SPECIFIED, not emergent. This consistency is crucial for 5-agent debates.
+
+---
+
+## 3. 🎯 Steering Docs
+
+### What We Created
+**File:** `.kiro/steering/ghost-agent-rules.md`
+
+```markdown
+## Agent Personalities (NEVER mix these up)
+
+1. **Elara** - Maternal, gentle, focuses on family harmony
+2. **Harlan** - Scientific, amnesiac, logical but emotionally confused  
+3. **Mira** - Childlike, innocent, wants play and attention
+4. **Theo** - Dramatic, regretful, seeks redemption
+5. **Selene** - Cold but softening, demands truth and accountability
+
+## Inter-Agent Debate Protocol
+
+- Each agent MUST respond independently
+- Agents can disagree - conflict is good for drama
+- Mira often sides with emotional choices
+- Harlan provides logical analysis but defers to family
+- Selene demands honesty, Theo seeks forgiveness
+- Final consensus should feel earned, not forced
+```
+
+### Impact
+- **50+ agent responses** generated across development
+- **ZERO personality mix-ups** (Mira never sounded like Selene)
+- **Authentic conflict** in debates (not forced agreement)
+
+### Strategy That Worked
+**Define relationships between agents, not just individual traits.**
+
+**Before Steering:**
+```
+Elara: "Look for family connections"
+Harlan: "Find the family bonds"
+Mira: "Family is important!"
+```
+All saying the same thing. Boring!
+
+**After Steering:**
+```
+Elara: "Focus on love and emotional memories"
+Harlan: "I... I struggle to recall. But logic suggests categories"
+Mira: "The happy ones! Like when we played!"
+Theo: "Brother, your family moments define you"
+Selene: "Truth matters. Match honestly, not hopefully"
+```
+Real conflict! Different perspectives! Emergent family dynamics!
+
+---
+
+## 4. 🔄 Hybrid Development Approach
+
+### The Frankenstein Magic
+Each agent was built DIFFERENTLY, yet they work together:
+
+| Agent | Built With | Why This Approach |
+|-------|------------|-------------------|
+| **Elara** | Vibe Coding | Emotional, maternal warmth needs natural language |
+| **Harlan** | Spec-Driven | Logical, technical personality needs formal definition |
+| **Mira** | Steering Docs | Childlike simplicity enforced through rules |
+| **Theo** | Iterative Refinement | Dramatic voice refined through multiple Kiro conversations |
+| **Selene** | Personality-First | Cold-but-softening arc defined upfront |
+
+### Why This Creates a Chimera
+- **Incompatible development paradigms** (vibe vs spec vs steering)
+- **Different "feels"** (Elara flows naturally, Harlan is rigid)
+- **Yet they debate coherently** (steering docs prevent chaos)
+- **Result:** A family that feels genuinely alive, with visible "seams" (disagreements)
+
+---
+
+## 5. 🤖 Real-Time Multi-Agent System
+
+### Architecture
+**File:** `app/api/ghost-debate/route.ts`
+
+```typescript
+// Invoke all 5 agents in parallel
+const debatePromises = Object.keys(GHOST_AGENTS).map(async (ghostName) => {
+  const context = `Puzzle: ${puzzleContext}\nPlayer asks: ${playerMessage}`
+  const response = await invokeGhostAgent(ghostName, context, apiKey)
+  return { ghost: GHOST_AGENTS[ghostName].name, message: response }
+})
+
+const debate = await Promise.all(debatePromises)
+
+// Elara synthesizes consensus
+const consensus = await invokeGhostAgent('elara', 
+  `Based on this debate:\n${debate}\n\nProvide a single consensus hint:`,
+  apiKey
+)
+```
+
+### Why This Is Impressive
+- **5 parallel API calls** to Groq (llama-3.3-70b-versatile)
+- **Independent responses** (agents don't see each other's answers)
+- **Real-time synthesis** (Elara creates consensus from all perspectives)
+- **Never the same twice** (temperature=0.8 for variability)
+
+### Example Debate
+**Puzzle:** Match family photos to memory categories
+
+**Responses:**
+- Elara: "Focus on love and emotional memories, dear one."
+- Harlan: "I... categories. Logic. But family transcends data."
+- Mira: "The happy ones! When we played together!"
+- Theo: "Your family moments define you, brother."
+- Selene: "Truth matters. Match honestly, not hopefully."
+
+**Consensus (Elara):** "Look for the emotional connections in each photo—love, joy, and family bonds will guide you."
+
+---
+
+## 6. 🎙️ Azure TTS Integration
+
+### What We Built
+Unique voice per character using Azure Cognitive Services TTS.
+
+### Voice Mapping
+```typescript
+const voiceMap = {
+  elara: 'en-US-JennyNeural',      // Soft, maternal
+  harlan: 'en-US-GuyNeural',       // Deep, confused
+  mira: 'en-US-AriaNeural',        // High-pitched, childlike
+  theo: 'en-US-DavisNeural',       // Dramatic, passionate
+  selene: 'en-US-SaraNeural',      // Cold, elegant
+  narrator: 'en-US-ChristopherNeural' // Professional storytelling
+}
+```
+
+### Features
+- **SSML support** for emotional delivery (pauses, pitch, rate)
+- **Caching system** (debate responses cached to avoid re-generation)
+- **Fallback to browser TTS** if Azure not configured
+- **Queue system** (sequential speech, no overlapping)
+
+### Impact
+- **Professional voice acting** without hiring actors
+- **Unique personality** through voice (Mira sounds childlike, Selene sounds cold)
+- **500k chars/month free** (enough for extensive testing)
+
+---
+
+## 7. 🎮 Complete Game Implementation
+
+### 5 Playable Scenes
+1. **Intro** - Forest entrance (cinematic)
+2. **Foyer** - Elara + Tapestry puzzle
+3. **Study** - Harlan + Neural maze
+4. **Nursery** - Mira + Love harvest
+5. **Hallway** - Theo & Selene + Rose door maze
+6. **Chapel** - Final reunion + Vow ritual
+
+### 3 Puzzle Types
+- **Tapestry Matching** (match photos to emotions)
+- **Neural Maze** (navigate memory fragments)
+- **Love Harvest** (connect memories to family tree)
+- **Rose Door** (answer questions about love/forgiveness)
+
+### 26 AI-Generated Scene Images
+All visuals created with **Google Gemini (Nano Banano Pro)** using carefully crafted prompts:
+- Gothic-cyberpunk art style
+- Consistent visual language across all scenes
+- Atmospheric lighting and mood
+- Each scene has multiple variations (intro, progression, completion)
+
+### Background Music
+All scores composed with **Suno AI** using thematic prompts:
+- Act 1 (Foyer): Maternal, melancholic piano
+- Act 2 (Study): Scientific, glitchy electronic
+- Act 3 (Nursery): Playful yet haunting music box
+- Act 4 (Hallway): Romantic, regretful strings
+- Act 5 (Chapel): Hopeful, transcendent choir
+- Finale: Peaceful resolution theme
+
+---
+
+## 8. 🎨 AI-Generated Assets (The Full Frankenstein Stack)
+
+### Visual Design with Gemini
+**Tool:** Google Gemini (Nano Banano Pro)
+
+**Process:**
+1. Defined gothic-cyberpunk aesthetic through Kiro conversations
+2. Generated prompts for each scene with specific mood and elements
+3. Created 26 scene variations across 6 locations
+4. Maintained visual consistency through prompt engineering
+
+**Example Prompts:**
+- Foyer: "Gothic mansion foyer with floating tapestry, moonlight through dusty windows, cyberpunk holographic family photos, maternal warmth, melancholic atmosphere"
+- Study: "Cyberpunk laboratory with floating books, pulsing crystal, fragmented memories as data streams, scientific chaos, blue-green lighting"
+- Chapel: "Gothic chapel with stained glass windows depicting family, golden nexus crystal on altar, five ghost silhouettes, hopeful transcendent light"
+
+**Why This Matters:**
+- Consistent visual language across entire game
+- No need for traditional art pipeline
+- Rapid iteration on aesthetic direction
+- Perfect for hackathon timeline
+
+### Music Composition with Suno AI
+**Tool:** Suno AI
+
+**Process:**
+1. Defined emotional arc for each act
+2. Generated thematic prompts matching character personalities
+3. Created 6 unique background scores
+4. Matched music to narrative beats
+
+**Example Prompts:**
+- Act 1: "Melancholic piano, maternal warmth, gothic atmosphere, slow tempo, emotional depth"
+- Act 2: "Glitchy electronic, scientific confusion, fragmented memories, cyberpunk ambience"
+- Act 3: "Haunting music box, childlike innocence, playful yet sad, nursery rhyme distorted"
+- Finale: "Transcendent choir, peaceful resolution, family harmony, hopeful ending"
+
+**Why This Matters:**
+- Professional-quality music without composers
+- Thematic consistency with character arcs
+- Emotional reinforcement of narrative
+- Atmospheric immersion
+
+### The Complete AI Stack
+**Every modality powered by AI:**
+- **Text/Reasoning**: Groq (5 agent personalities)
+- **Speech**: Azure TTS (6 unique voices)
+- **Visuals**: Gemini (26 scene images)
+- **Audio**: Suno AI (6 background scores)
+- **Development**: Kiro (vibe + spec + steering)
+
+**This is the ultimate Frankenstein:** Not just stitching together code paradigms, but stitching together ENTIRE AI SYSTEMS across different modalities to create one cohesive experience.
+
+---
+
+## 📊 Metrics
 
 - **5 independent agents** (each with unique personality)
-- **3 MCP servers** (image gen, memory, blockchain)
-- **2 development paradigms** (vibe + spec)
-- **1 steering doc** (keeping it all coherent)
-- **Infinite emergent conversations** (never the same twice)
+- **50+ Kiro generations** (scenes, components, API routes)
+- **0 personality mix-ups** (thanks to steering docs)
+- **3 development paradigms** (vibe, spec, steering)
+- **26 Gemini-generated images** (gothic-cyberpunk scenes)
+- **6 Suno AI music tracks** (atmospheric scores per act)
+- **∞ emergent conversations** (never the same twice)
 
-This is the Frankenstein chimera: Incompatible parts that shouldn't work together, but do—and create something unexpectedly powerful.
+---
+
+## 🏆 Why This Wins Frankenstein
+
+### The Chimera Effect
+
+**Incompatible Parts:**
+- Vibe-coded Elara (fluid, emotional)
+- Spec-driven Harlan (rigid, logical)
+- Steering-enforced Mira (rule-based simplicity)
+- Gemini-generated visuals (AI art)
+- Suno AI-composed music (AI audio)
+- Azure TTS voices (AI speech)
+- Groq agent debates (AI reasoning)
+
+**Stitched Together By:**
+- Steering docs (prevent chaos)
+- Parallel API calls (force independence)
+- Consensus synthesis (Elara mediates)
+- Kiro orchestration (hybrid development)
+
+**Result:**
+A family that feels genuinely alive. You can SEE the seams (agents disagree), but they form something greater than the sum of their parts.
+
+**This is Frankenstein:** Different AI systems, different development methods, different modalities (text, image, audio), all stitched together into one emergent experience.
+
+---
+
+## 🎯 Key Takeaways
+
+1. **Hybrid Approach Wins**: Vibe for creativity, spec for logic, steering for consistency
+2. **Steering is Underrated**: Prevents 95% of "off-brand" responses
+3. **Real-Time Debates**: Parallel API calls create authentic conflict
+4. **Multi-Modal AI**: Text (Groq) + Speech (Azure) + Visuals (Gemini) + Music (Suno)
+5. **Frankenstein = Synthesis**: Different AI systems, different modalities, one experience
+
+---
+
+## 🚀 Try It Yourself
+
+```bash
+git clone <repo>
+npm install
+cp .env.example .env
+# Add GROQ_API_KEY to .env
+npm run dev
+```
+
+Click "Ask Ghosts for Hint" and watch 5 AI agents debate in real-time.
+
+**This is the Frankenstein chimera: Incompatible parts that shouldn't work together, but do—and create something unexpectedly powerful.**

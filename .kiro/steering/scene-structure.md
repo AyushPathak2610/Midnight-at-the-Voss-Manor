@@ -52,9 +52,12 @@ export default function SceneName({ onComplete, onDebate }: SceneProps) {
 
 ## Image Assets
 
-Use pre-generated shots from `/shots/` folder:
+Use Gemini-generated shots from `public/shots/` folder:
 - Intro: intro_1.png through intro_4.png
 - Foyer (Scene 1): 1a_1.png through 1b_1.png
 - Study (Scene 2): 2a_1.png through 2b_1.png
 - Nursery (Scene 3): 3a_1.png through 3b_1.png
+- Hallway (Scene 4): 4a_1.png through 5_1_1.png
 - Chapel (Scene 5): 5a_1.png through finale_1.png
+
+All images generated with Google Gemini (Nano Banano Pro) using gothic-cyberpunk prompts.

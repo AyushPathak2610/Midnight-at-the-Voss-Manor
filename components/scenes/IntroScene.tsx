@@ -11,6 +11,7 @@ interface IntroSceneProps {
 
 export default function IntroScene({ onComplete }: IntroSceneProps) {
   const [started, setStarted] = useState(false)
+  const [musicStarted, setMusicStarted] = useState(false)
   const [currentShot, setCurrentShot] = useState(1)
   const totalShots = 4
   const hasSpokenRef = useRef<Set<string>>(new Set())
@@ -24,15 +25,18 @@ export default function IntroScene({ onComplete }: IntroSceneProps) {
     "The gate opens... there's no turning back."
   ]
 
-  const handleStart = () => {
-    setStarted(true)
+  const handleStartMusic = () => {
+    playSceneMusic('intro')
+    setMusicStarted(true)
   }
 
-  useEffect(() => {
-    if (!started) return
-    // Start intro music only after user clicks
-    playSceneMusic('intro')
-  }, [started])
+  const handleStart = () => {
+    // Start music if not already started
+    if (!musicStarted) {
+      playSceneMusic('intro')
+    }
+    setStarted(true)
+  }
 
   useEffect(() => {
     if (!started) return
@@ -80,9 +84,21 @@ export default function IntroScene({ onComplete }: IntroSceneProps) {
       {!started ? (
         // Start screen - requires user interaction for audio
         <div className="start-screen">
+          <Image
+            src="/shots/int_start.png"
+            alt="Start Screen"
+            fill
+            style={{ objectFit: 'cover' }}
+            priority
+          />
           <div className="start-content">
             <h1 className="title">MIDNIGHT AT THE VOSS MANOR</h1>
-            <p className="subtitle">A Ghost Story in Five Acts</p>
+            <p className="subtitle">Some bonds transcend death. Some mistakes echo forever.</p>
+            {!musicStarted && (
+              <button className="music-button" onClick={handleStartMusic}>
+                🎵 Enable Music
+              </button>
+            )}
             <button className="start-button" onClick={handleStart}>
               Click to Begin
             </button>
@@ -104,7 +120,7 @@ export default function IntroScene({ onComplete }: IntroSceneProps) {
           </div>
           
           <div className="intro-overlay">
-            <h1 className="title">MIDNIGHT AT THE VOSS MANOR</h1>
+            {currentShot === 4 && <h1 className="title">MIDNIGHT AT THE VOSS MANOR</h1>}
             <p className="narration">{narrations[currentShot - 1]}</p>
           </div>
 
@@ -129,33 +145,62 @@ export default function IntroScene({ onComplete }: IntroSceneProps) {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 100%);
           z-index: 100;
         }
         
         .start-content {
+          position: relative;
+          z-index: 10;
           text-align: center;
           animation: fadeIn 1s ease-in;
         }
         
         .subtitle {
-          font-size: 20px;
-          color: #e8b4f0;
-          margin-bottom: 40px;
-          font-family: 'Georgia', 'Times New Roman', serif;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 300;
+          font-size: 18px;
           font-style: italic;
+          color: #00FFFF;
+          text-transform: uppercase;
+          letter-spacing: 8px;
+          margin-bottom: 80px;
+          text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
         }
         
+        .music-button {
+          padding: 15px 40px;
+          font-size: 18px;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 400;
+          background: rgba(0, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          border: 2px solid rgba(0, 255, 255, 0.6);
+          border-radius: 8px;
+          color: #00FFFF;
+          cursor: pointer;
+          transition: all 0.3s;
+          margin-bottom: 20px;
+        }
+
+        .music-button:hover {
+          background: rgba(0, 255, 255, 0.3);
+          transform: scale(1.05);
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
         .start-button {
           padding: 20px 50px;
-          font-size: 24px;
-          background: rgba(74, 144, 226, 0.2);
+          font-size: 20px;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 3px;
+          background: rgba(0, 0, 0, 0.6);
           backdrop-filter: blur(10px);
-          border: 3px solid rgba(74, 144, 226, 0.8);
-          border-radius: 12px;
-          color: #4a90e2;
+          border: 2px solid rgba(255, 255, 255, 0.8);
+          border-radius: 8px;
+          color: #FFFFFF;
           cursor: pointer;
-          font-family: 'Georgia', 'Times New Roman', serif;
           transition: all 0.3s;
           animation: pulse 2s ease-in-out infinite;
         }
@@ -184,29 +229,40 @@ export default function IntroScene({ onComplete }: IntroSceneProps) {
           inset: 0;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: flex-end;
           align-items: center;
-          background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+          padding-bottom: 80px;
+          background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
           z-index: 5;
         }
         
         .title {
-          font-size: 64px;
-          color: #4a90e2;
-          text-shadow: 0 0 20px rgba(74, 144, 226, 0.8);
-          margin-bottom: 40px;
-          letter-spacing: 4px;
+          font-family: 'Playfair Display', serif;
+          font-weight: 900;
+          font-size: 72px;
+          color: #E0E0E0;
+          text-transform: uppercase;
+          letter-spacing: 12px;
+          margin-bottom: 30px;
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+          filter: drop-shadow(2px 0 0 rgba(255, 0, 0, 0.3)) drop-shadow(-2px 0 0 rgba(0, 255, 255, 0.3));
         }
         
         .narration {
           font-size: 28px;
           color: #e8b4f0;
-          text-shadow: 0 0 10px rgba(232, 180, 240, 0.6);
-          animation: glow 2s ease-in-out infinite;
-          max-width: 800px;
           text-align: center;
-          font-family: 'Georgia', 'Times New Roman', serif;
-          font-style: italic;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 400;
+          text-shadow: 0 0 10px rgba(232, 180, 240, 0.6);
+          max-width: 900px;
+          padding: 0 40px;
+          letter-spacing: 1px;
+          line-height: 1.6;
+        }
+        
+        .title {
+          margin-bottom: 30px;
         }
         
         .skip-button {

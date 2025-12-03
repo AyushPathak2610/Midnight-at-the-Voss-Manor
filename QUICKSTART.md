@@ -1,4 +1,4 @@
-# Shadowed Haven - 5-Minute Quickstart
+# Midnight at the Voss Manor - 5-Minute Quickstart
 
 ## Get Running in 3 Commands
 
@@ -10,42 +10,54 @@ npm run dev
 
 Then open http://localhost:3000
 
-## Add Your Groq API Key (FREE!)
+---
+
+## Required: Add Your Groq API Key (FREE!)
 
 Edit `.env`:
 ```env
 GROQ_API_KEY=gsk_your-actual-key-here
 ```
 
-Get your FREE key at: https://console.groq.com/keys
+**Get your FREE key:** https://console.groq.com/keys
 
-(Groq offers generous free tier with fast inference!)
+(Groq offers generous free tier with fast inference - no credit card required!)
+
+---
 
 ## Test It Works
 
 1. Click through intro scene
 2. Meet Elara in the foyer
 3. Click **"Ask Ghosts for Hint"**
-4. Watch the debug panel (bottom right) - you'll see all 5 ghosts debating!
+4. Watch all 5 ghosts debate in real-time!
+
+---
 
 ## What You're Seeing
 
-- **5 independent AI agents** powered by Groq's Llama 3.1 (Elara, Harlan, Mira, Theo, Selene)
-- **Real-time debate** (not pre-scripted)
-- **MCP integrations** (image gen, memory, blockchain)
-- **Kiro Agent Hooks** orchestrating everything
+- **5 independent AI agents** powered by Groq's Llama 3.3-70b
+- **Real-time debate** (not pre-scripted, never the same twice)
+- **Unique personalities** (Elara is maternal, Harlan is logical, Mira is childlike)
+- **Emergent storytelling** (agents genuinely disagree with each other)
 
-## Optional: Add More Capabilities
+---
 
-**The game works perfectly without these!** But if you want the full experience:
+## Optional: Add Voice Acting
 
-### ElevenLabs (Character Voice Acting) - RECOMMENDED!
-1. Go to https://elevenlabs.io/sign-up
-2. Sign up (free 10,000 chars/month)
-3. Get API key from Settings → API Keys
-4. Add to `.env`:
+**The game works perfectly without this!** But Azure TTS adds professional voice acting.
+
+### Azure Cognitive Services TTS (Recommended)
+
+1. Go to https://azure.microsoft.com/free/cognitive-services
+2. Sign up (free 500,000 chars/month)
+3. Create a Speech resource
+4. Get API key and region
+5. Add to `.env`:
+
 ```env
-NEXT_PUBLIC_ELEVENLABS_API_KEY=your-key-here
+NEXT_PUBLIC_AZURE_TTS_API_KEY=your-key-here
+NEXT_PUBLIC_AZURE_TTS_REGION=eastus
 ```
 
 **Each character gets unique voice:**
@@ -54,88 +66,71 @@ NEXT_PUBLIC_ELEVENLABS_API_KEY=your-key-here
 - Mira: High-pitched, childlike innocence
 - Theo: Dramatic, regretful
 - Selene: Cold, elegant, commanding
+- Narrator: Professional storytelling
 
-**Without this:** Browser TTS fallback (still works, just less expressive)
+**Without Azure TTS:** Browser's built-in TTS is used (still works, just less expressive)
 
-### Replicate (Mira's Crayon Drawings)
-1. Go to https://replicate.com/account/api-tokens
-2. Sign up (free $5 credit)
-3. Create token, add to `.env`:
-```env
-REPLICATE_API_KEY=r8_your-key-here
-```
-
-### Pinecone (Harlan's Memory)
-1. Go to https://app.pinecone.io
-2. Sign up (free tier, no card needed)
-3. Get API key, add to `.env`:
-```env
-PINECONE_API_KEY=your-key-here
-```
-
-**Without these:** App uses placeholder images and in-memory storage (still works great!).
-
-## Verify Everything
-
-```bash
-npm run verify
-```
-
-This checks:
-- ✅ Dependencies installed
-- ✅ .env configured
-- ✅ Kiro files present
-- ✅ MCP server ready
-
-**Test MCP server (optional):**
-```bash
-npm run test-mcp
-```
-
-Should show: `Blockchain Vows MCP Server started`
-
-**Note:** If you see MCP errors in Kiro IDE, ignore them! The MCP integration works through API routes. See `docs/WHY_MCP_WORKS.md` for details.
-
-## Next Steps
-
-1. **Explore the code:**
-   - `lib/agents/ghostAgents.ts` - See the 5 agent personalities
-   - `.kiro/hooks/on-puzzle-hint.json` - Agent hook definition
-   - `.kiro/steering/ghost-agent-rules.md` - Personality rules
-
-2. **Try Kiro features:**
-   - Open Kiro IDE → Agent Hooks panel
-   - Chat with Kiro: "Make Elara more poetic"
-   - Watch it refine the personality
-
-3. **Record your demo:**
-   - Follow `DEMO_SCRIPT.md` for video guide
-   - Show the debug panel prominently
-   - Emphasize the real-time agent debates
+---
 
 ## Troubleshooting
 
-**"Missing GROQ_API_KEY":**
+### "Missing GROQ_API_KEY" error
 - Make sure `.env` exists with valid key
 - Get free key at https://console.groq.com/keys
 - Restart dev server: Ctrl+C, then `npm run dev`
 
-**Agents not responding:**
-- Check Groq API key is valid
+### Agents not responding
+- Check Groq API key is valid at console.groq.com
 - Check browser console for errors
 - Groq free tier has rate limits (usually generous enough)
 
-**Need help?**
-- Read `SETUP.md` for detailed instructions
-- Check `README.md` for architecture overview
+### Voice not working
+- Azure TTS is optional! Game works with browser TTS
+- If you want Azure TTS, check API key and region in `.env`
+- Make sure keys start with `NEXT_PUBLIC_` prefix
+
+---
+
+## Next Steps
+
+### Explore the Code
+- `lib/agents/ghostAgents.ts` - See the 5 agent personalities
+- `.kiro/steering/ghost-agent-rules.md` - Personality rules
+- `app/api/ghost-debate/route.ts` - Debate orchestration
+
+### Try Kiro Features
+- Open Kiro IDE
+- Chat with Kiro: "Make Elara more poetic"
+- Watch it refine the personality in real-time
+
+### Record Your Demo
+- Show the debate system prominently
+- Emphasize real-time agent responses
+- Highlight how agents disagree (not forced consensus)
+
+---
 
 ## Ready to Submit?
 
-See `HACKATHON_SUBMISSION.md` for:
-- One-paragraph pitch
-- Feature checklist
-- Demo video tips
-- Submission requirements
+See `KIRO_FEATURES.md` for:
+- Detailed writeup on how we used Kiro
+- Vibe coding vs spec-driven comparison
+- Steering docs strategy
+- Why this is Frankenstein-worthy
+
+---
+
+## 🎨 AI-Powered Everything
+
+This game showcases AI across every modality:
+
+- **AI Agents**: Groq (llama-3.3-70b) - 5 debating personalities
+- **Voice Acting**: Azure TTS - 6 unique neural voices
+- **Scene Images**: Google Gemini (Nano Banano Pro) - 26 gothic-cyberpunk scenes
+- **Background Music**: Suno AI - 6 atmospheric scores
+- **Development**: Kiro IDE - vibe coding + spec-driven + steering docs
+
+**This is the Frankenstein magic:** Different AI systems stitched together into one cohesive experience.
 
 ---
 
