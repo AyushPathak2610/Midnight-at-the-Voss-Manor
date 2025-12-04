@@ -202,7 +202,6 @@ export default function HallwayScene({ onComplete }: HallwaySceneProps) {
         <div className="dialogue-box success">
           <h3 style={{ marginBottom: '20px' }}>✨ Door Unlocked!</h3>
           <p className="ghost-theo">"The door opens. Selene emerges, veiled in wedding dress, eyes softening. They clasp hands, veils thin. Path to chapel clears."</p>
-          <button onClick={onComplete}>Continue to Chapel →</button>
         </div>
       )}
 

@@ -43,10 +43,12 @@ export default function StudyScene({ onComplete }: StudySceneProps) {
     
     if (stage === 'intro') {
       speechService.speak("Books orbit a pulsing crystal. The room itself seems to twist...", 'narrator')
+      setTimeout(() => setStage('harlan'), 10000)
     } else if (stage === 'harlan') {
       speechService.speak("I... I remember fragments. The Eternal Harmony project. I wanted to connect us all... forever.", 'harlan')
     } else if (stage === 'complete') {
       speechService.speak("I... I remember now. The family. The love. The experiment... it was meant to preserve that.", 'harlan')
+      setTimeout(() => onComplete(), 17000)
     }
   }, [stage])
 
@@ -194,7 +196,6 @@ export default function StudyScene({ onComplete }: StudySceneProps) {
       {stage === 'intro' && (
         <div className="dialogue-box">
           <p className="narration">Books orbit a pulsing crystal. The room itself seems to twist...</p>
-          <button onClick={() => setStage('harlan')}>Approach the Crystal →</button>
         </div>
       )}
 
@@ -242,7 +243,7 @@ export default function StudyScene({ onComplete }: StudySceneProps) {
                 ) : (
                   <button onClick={() => setStage('puzzle')}>Enter Neural Maze</button>
                 )}
-                <button onClick={() => setStage('puzzle')} className="skip-btn">Skip Story</button>
+                <button onClick={() => { speechService.stop(); setStage('puzzle'); }} className="skip-btn">Skip Story</button>
               </>
             )}
           </div>
@@ -300,7 +301,6 @@ export default function StudyScene({ onComplete }: StudySceneProps) {
         <div className="dialogue-box success">
           <h3 style={{ marginBottom: '20px' }}>✨ Memories Restored!</h3>
           <p className="ghost-harlan">"I... I remember now. The family. The love. The experiment... it was meant to preserve that."</p>
-          <button onClick={onComplete}>Continue to Nursery →</button>
         </div>
       )}
 

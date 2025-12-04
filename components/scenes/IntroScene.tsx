@@ -11,7 +11,6 @@ interface IntroSceneProps {
 
 export default function IntroScene({ onComplete }: IntroSceneProps) {
   const [started, setStarted] = useState(false)
-  const [musicStarted, setMusicStarted] = useState(false)
   const [currentShot, setCurrentShot] = useState(1)
   const totalShots = 4
   const hasSpokenRef = useRef<Set<string>>(new Set())
@@ -25,16 +24,9 @@ export default function IntroScene({ onComplete }: IntroSceneProps) {
     "The gate opens... there's no turning back."
   ]
 
-  const handleStartMusic = () => {
-    playSceneMusic('intro')
-    setMusicStarted(true)
-  }
-
   const handleStart = () => {
-    // Start music if not already started
-    if (!musicStarted) {
-      playSceneMusic('intro')
-    }
+    // Start music when game begins
+    playSceneMusic('intro')
     setStarted(true)
   }
 
@@ -94,11 +86,6 @@ export default function IntroScene({ onComplete }: IntroSceneProps) {
           <div className="start-content">
             <h1 className="title">MIDNIGHT AT THE VOSS MANOR</h1>
             <p className="subtitle">Some bonds transcend death. Some mistakes echo forever.</p>
-            {!musicStarted && (
-              <button className="music-button" onClick={handleStartMusic}>
-                🎵 Enable Music
-              </button>
-            )}
             <button className="start-button" onClick={handleStart}>
               Click to Begin
             </button>
@@ -167,27 +154,6 @@ export default function IntroScene({ onComplete }: IntroSceneProps) {
           text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
         }
         
-        .music-button {
-          padding: 15px 40px;
-          font-size: 18px;
-          font-family: 'Montserrat', sans-serif;
-          font-weight: 400;
-          background: rgba(0, 255, 255, 0.2);
-          backdrop-filter: blur(10px);
-          border: 2px solid rgba(0, 255, 255, 0.6);
-          border-radius: 8px;
-          color: #00FFFF;
-          cursor: pointer;
-          transition: all 0.3s;
-          margin-bottom: 20px;
-        }
-
-        .music-button:hover {
-          background: rgba(0, 255, 255, 0.3);
-          transform: scale(1.05);
-          box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-        }
-
         .start-button {
           padding: 20px 50px;
           font-size: 20px;

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { speechService } from '@/lib/tts/speechService'
 import { useMusic } from '@/lib/audio/musicService'
+import { soundEffects } from '@/lib/audio/soundEffects'
 
 interface ChapelSceneProps {
   onDebate?: (ghost: string, message: string) => void
@@ -34,6 +35,7 @@ export default function ChapelScene({ onDebate }: ChapelSceneProps) {
     
     if (stage === 'intro') {
       speechService.speak("The Chapel. Stained glass windows depict the family in happier times. The Nexus Crystal glows golden on the altar.", 'narrator')
+      setTimeout(() => setStage('reunion'), 15000)
     } else if (stage === 'reunion') {
       // Sequential dialogue - each waits for previous to finish with proper delays
       const speakSequentially = async () => {
@@ -60,6 +62,11 @@ export default function ChapelScene({ onDebate }: ChapelSceneProps) {
         }, 5000)
       }
       speakSequentially()
+      
+      // Auto-advance to reflection after 54 seconds
+      setTimeout(() => {
+        triggerFamilyReflection()
+      }, 56000)
     } else if (stage === 'ending') {
       // Play finale music
       playSceneMusic('finale')
@@ -125,6 +132,7 @@ export default function ChapelScene({ onDebate }: ChapelSceneProps) {
 
   const handleRitualClick = (icon: string) => {
     if (ritualProgress < 5) {
+      soundEffects.playSuccess()
       setRitualProgress(prev => prev + 1)
       if (ritualProgress + 1 >= 5) {
         setTimeout(() => setStage('ending'), 1000)
@@ -153,7 +161,6 @@ export default function ChapelScene({ onDebate }: ChapelSceneProps) {
       {stage === 'intro' && (
         <div className="dialogue-box">
           <p className="narration">The Chapel. Stained glass windows depict the family in happier times. The Nexus Crystal glows golden on the altar.</p>
-          <button onClick={() => setStage('reunion')}>Approach the Altar →</button>
         </div>
       )}
 
@@ -183,7 +190,6 @@ export default function ChapelScene({ onDebate }: ChapelSceneProps) {
             </div>
           </div>
           <p className="narration">The five ghosts stand in a circle. The Nexus Crystal pulses with their combined energy.</p>
-          <button onClick={triggerFamilyReflection}>Begin Family Heart-to-Heart →</button>
         </div>
       )}
 

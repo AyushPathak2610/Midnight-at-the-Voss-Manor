@@ -39,11 +39,13 @@ export default function FoyerScene({ onComplete }: FoyerSceneProps) {
     
     if (stage === 'intro') {
       speechService.speak("You enter the foyer. Dust hangs in moonbeams. A lantern ignites on its own...", 'narrator')
+      setTimeout(() => setStage('elara'), 12000)
     } else if (stage === 'elara' && !showingStory) {
       speechService.speak("Welcome, traveler. I am Elara... once mother to this family. We are trapped here, our bonds fractured by tragedy. Would you like to hear my story?", 'elara')
     } else if (stage === 'complete') {
       // Only speak once when entering complete stage
       speechService.speak("The tapestry weaves itself... memories restored. Thank you.", 'elara', false)
+      setTimeout(() => onComplete(), 10000)
     }
   }, [stage, showingStory])
 
@@ -196,7 +198,6 @@ export default function FoyerScene({ onComplete }: FoyerSceneProps) {
       {stage === 'intro' && (
         <div className="dialogue-box">
           <p className="narration">You enter the foyer. Dust hangs in moonbeams. A lantern ignites on its own...</p>
-          <button onClick={() => setStage('elara')}>Continue →</button>
         </div>
       )}
 
@@ -244,7 +245,7 @@ export default function FoyerScene({ onComplete }: FoyerSceneProps) {
                 ) : (
                   <button onClick={() => setStage('puzzle')}>Begin Puzzle</button>
                 )}
-                <button onClick={() => setStage('puzzle')} className="skip-btn">Skip Story</button>
+                <button onClick={() => { speechService.stop(); setStage('puzzle'); }} className="skip-btn">Skip Story</button>
               </>
             )}
           </div>
@@ -296,7 +297,6 @@ export default function FoyerScene({ onComplete }: FoyerSceneProps) {
         <div className="dialogue-box success">
           <h3 style={{ marginBottom: '20px' }}>✨ Puzzle Complete!</h3>
           <p className="ghost-elara">"The tapestry weaves itself... memories restored. Thank you."</p>
-          <button onClick={onComplete}>Enter the Study →</button>
         </div>
       )}
 

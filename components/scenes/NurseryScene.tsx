@@ -38,10 +38,12 @@ export default function NurseryScene({ onComplete }: NurserySceneProps) {
     
     if (stage === 'intro') {
       speechService.speak("Toys float in zero gravity. Crayon drawings animate on the walls...", 'narrator')
+      setTimeout(() => setStage('mira'), 10000)
     } else if (stage === 'mira') {
       speechService.speak("Hi! I'm Mira! Do you wanna play?", 'mira')
     } else if (stage === 'complete') {
       speechService.speak("Yay! The tree is pretty now! I remember everything! Thank you for playing with me!", 'mira')
+      setTimeout(() => onComplete(), 12000)
     }
   }, [stage])
 
@@ -185,7 +187,6 @@ export default function NurseryScene({ onComplete }: NurserySceneProps) {
       {stage === 'intro' && (
         <div className="dialogue-box">
           <p className="narration">Toys float in zero gravity. Crayon drawings animate on the walls...</p>
-          <button onClick={() => setStage('mira')}>Look in the Crib →</button>
         </div>
       )}
 
@@ -233,7 +234,7 @@ export default function NurseryScene({ onComplete }: NurserySceneProps) {
                 ) : (
                   <button onClick={() => setStage('puzzle')}>Help Mira Remember</button>
                 )}
-                <button onClick={() => setStage('puzzle')} className="skip-btn">Skip Story</button>
+                <button onClick={() => { speechService.stop(); setStage('puzzle'); }} className="skip-btn">Skip Story</button>
               </>
             )}
           </div>
@@ -298,7 +299,6 @@ export default function NurseryScene({ onComplete }: NurserySceneProps) {
         <div className="dialogue-box success">
           <h3 style={{ marginBottom: '20px' }}>✨ Tree in Full Bloom!</h3>
           <p className="ghost-mira">"Yay! The tree is pretty now! I remember everything! Thank you for playing with me!"</p>
-          <button onClick={onComplete}>Continue to Chapel →</button>
         </div>
       )}
 
