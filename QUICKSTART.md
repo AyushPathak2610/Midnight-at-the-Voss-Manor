@@ -1,6 +1,16 @@
-# Midnight at the Voss Manor - 5-Minute Quickstart
+# Midnight at the Voss Manor - Quickstart
 
-## Get Running in 3 Commands
+## 🎮 Play Online (Instant)
+
+**Live Demo:** [https://midnightatthevossmanor.vercel.app/](https://midnightatthevossmanor.vercel.app/)
+
+No installation needed! Just click and play.
+
+---
+
+## 🚀 Run Locally (5 Minutes)
+
+Get running in 3 commands:
 
 ```bash
 npm install

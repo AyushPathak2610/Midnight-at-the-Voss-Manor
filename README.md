@@ -4,6 +4,8 @@
 
 > *"Five souls trapped in limbo. Five AI minds that must agree to set them free."*
 
+🎮 **[Play Now](https://midnightatthevossmanor.vercel.app/)** | 📖 **[GitHub](https://github.com/AyushPathak2610/Midnight-at-the-Voss-Manor)**
+
 ---
 
 ## 🎮 What Is This?
@@ -20,7 +22,15 @@ Built for the **Kiro Frankenstein Hackathon** to showcase:
 
 ---
 
-## 🚀 Quick Start (5 Minutes)
+## 🎮 Play Now
+
+**Live Demo:** [https://midnightatthevossmanor.vercel.app/](https://midnightatthevossmanor.vercel.app/)
+
+No installation required! Just click and play.
+
+---
+
+## 🚀 Run Locally (Optional)
 
 ### 1. Install Dependencies
 ```bash
@@ -280,6 +290,9 @@ NEXT_PUBLIC_AZURE_TTS_REGION=eastus
 
 **Ready to help the ghosts find peace?**
 
+🎮 **Play Online:** [https://midnightatthevossmanor.vercel.app/](https://midnightatthevossmanor.vercel.app/)
+
+**Or run locally:**
 ```bash
 npm run dev
 ```
