@@ -245,7 +245,7 @@ const voiceMap = {
 
 ## 7. 🎮 Complete Game Implementation
 
-### 5 Playable Scenes
+### 6 Playable Scenes
 1. **Intro** - Forest entrance (cinematic)
 2. **Foyer** - Elara + Tapestry puzzle
 3. **Study** - Harlan + Neural maze
@@ -253,11 +253,11 @@ const voiceMap = {
 5. **Hallway** - Theo & Selene + Rose door maze
 6. **Chapel** - Final reunion + Vow ritual
 
-### 3 Puzzle Types
+### 4 Puzzle Types
 - **Tapestry Matching** (match photos to emotions)
-- **Neural Maze** (navigate memory fragments)
-- **Love Harvest** (connect memories to family tree)
-- **Rose Door** (answer questions about love/forgiveness)
+- **Neural Maze** (navigate memory fragments, avoid glitches)
+- **Love Harvest** (connect memories to family tree branches)
+- **Rose Door Maze** (answer questions about love, forgiveness, and trust)
 
 ### 26 AI-Generated Scene Images
 All visuals created with **Google Gemini (Nano Banano Pro)** using carefully crafted prompts:
@@ -267,13 +267,13 @@ All visuals created with **Google Gemini (Nano Banano Pro)** using carefully cra
 - Each scene has multiple variations (intro, progression, completion)
 
 ### Background Music
-All scores composed with **Suno AI** using thematic prompts:
-- Act 1 (Foyer): Maternal, melancholic piano
-- Act 2 (Study): Scientific, glitchy electronic
-- Act 3 (Nursery): Playful yet haunting music box
-- Act 4 (Hallway): Romantic, regretful strings
-- Act 5 (Chapel): Hopeful, transcendent choir
-- Finale: Peaceful resolution theme
+All scores composed with **Suno AI** and managed through `musicService`:
+- **Intro**: Dark atmospheric horror ambience (`/audio/music/intro.m4a`)
+- **Act 1-4** (Foyer, Study, Nursery, Hallway): Continuous emotional score (`/audio/music/Act1_4.m4a`)
+- **Act 5** (Chapel): Hopeful, transcendent choir (`/audio/music/act5.mp3`)
+- **Finale**: Peaceful resolution theme (`/audio/music/finale.mp3`)
+
+Music plays at 15% volume, loops seamlessly, and transitions between scenes without interruption when using the same track.
 
 ---
 
@@ -309,9 +309,9 @@ All scores composed with **Suno AI** using thematic prompts:
 4. Matched music to narrative beats
 
 **Example Prompts:**
-- Act 1: "Melancholic piano, maternal warmth, gothic atmosphere, slow tempo, emotional depth"
-- Act 2: "Glitchy electronic, scientific confusion, fragmented memories, cyberpunk ambience"
-- Act 3: "Haunting music box, childlike innocence, playful yet sad, nursery rhyme distorted"
+- Intro: "Dark atmospheric horror ambience with distant thunder, eerie wind, ominous drones, gothic mansion atmosphere"
+- Act 1-4: "Melancholic orchestral score blending maternal warmth, scientific tension, childlike wonder, and romantic regret"
+- Act 5: "Epic orchestral crescendo, emotional resolution, hope and sadness combined, cinematic finale atmosphere"
 - Finale: "Transcendent choir, peaceful resolution, family harmony, hopeful ending"
 
 **Why This Matters:**
@@ -339,7 +339,7 @@ All scores composed with **Suno AI** using thematic prompts:
 - **0 personality mix-ups** (thanks to steering docs)
 - **3 development paradigms** (vibe, spec, steering)
 - **26 Gemini-generated images** (gothic-cyberpunk scenes)
-- **6 Suno AI music tracks** (atmospheric scores per act)
+- **4 Suno AI music tracks** (intro, acts 1-4, act 5, finale)
 - **∞ emergent conversations** (never the same twice)
 
 ---

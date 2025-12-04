@@ -33,3 +33,11 @@ When implementing ghost debates:
 - Use async/await for all agent calls
 - Show debate in real-time to player (streaming preferred)
 - Never hardcode responses - always call Groq API
+
+## Music Integration
+
+- Use `useMusic()` hook from `lib/audio/musicService`
+- Call `playSceneMusic()` with scene identifier: 'intro', 'act1_4', 'act5', or 'finale'
+- Music files located in `public/audio/music/`
+- Music loops automatically and plays at 15% volume
+- Same track continues across scenes (e.g., Act 1-4 plays through Foyer, Study, Nursery, Hallway)

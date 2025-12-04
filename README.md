@@ -107,24 +107,24 @@ Cinematic entrance. Lost in a storm, you find the mansion.
 **Visuals:** 3 Gemini-generated cyberpunk lab scenes  
 **Music:** Suno AI Act 2 score (scientific, glitchy)
 
-### 4. Nursery - Mira's Room
+### 3. Nursery - Mira's Room
 **Puzzle:** Love Harvest (connect memories to family tree)  
 **Ghost:** Mira (Daughter) wants to remember happy times  
 **Visuals:** 3 Gemini-generated nursery scenes with floating toys  
-**Music:** Suno AI Act 3 score (playful, haunting)
+**Music:** Act 1-4 score continues (playful, haunting)
 
-### 4.5 Hallway - Theo & Selene
+### 4. Hallway - Theo & Selene
 **Puzzle:** Rose Door-Unlock Maze (answer questions about love and forgiveness)  
-**Ghosts:** Theo and Selene reunite  
-**Visuals:** 5 Gemini-generated hallway scenes with thorny vines  
-**Music:** Suno AI Act 4 score (romantic, regretful)
+**Ghosts:** Theo and Selene reunite through thorny walls  
+**Visuals:** 5 Gemini-generated hallway scenes with thorny vines and locked door  
+**Music:** Act 1-4 score continues (romantic, regretful)
 
 ### 5. Chapel - The Reunion
 **Final Scene:** All 5 ghosts reunite and find peace together  
 **Puzzle:** Vow Ritual (complete the binding ceremony)  
-**Debate:** Family decides their fate through AI discussion  
+**Debate:** Family reflects on their journey through AI discussion  
 **Visuals:** 4 Gemini-generated chapel scenes with stained glass  
-**Music:** Suno AI Act 5 + Finale scores (hopeful, transcendent)
+**Music:** Act 5 score transitions to Finale (hopeful, transcendent)
 
 ---
 
@@ -171,7 +171,8 @@ midnight-at-the-voss-manor/
 │   │   ├── FoyerScene.tsx           # Elara + Tapestry puzzle
 │   │   ├── StudyScene.tsx           # Harlan + Neural maze
 │   │   ├── NurseryScene.tsx         # Mira + Love harvest
-│   │   └── ChapelScene.tsx          # Final debate + ritual
+│   │   ├── HallwayScene.tsx         # Theo & Selene + Rose door maze
+│   │   └── ChapelScene.tsx          # Final reflection + ritual
 │   ├── GhostDebatePanel.tsx         # Real-time debate display
 │   └── TTSToggle.tsx                # Voice narration toggle
 ├── lib/
@@ -182,7 +183,14 @@ midnight-at-the-voss-manor/
 ├── mcp-servers/
 │   └── blockchain-vows-server.js    # Custom MCP for Selene
 ├── public/
-│   └── shots/                        # 26 pre-generated scene images
+│   ├── shots/                        # 26 pre-generated scene images
+│   └── audio/
+│       ├── music/                    # Background music tracks
+│       │   ├── intro.m4a            # Intro scene music
+│       │   ├── Act1_4.m4a           # Acts 1-4 music
+│       │   ├── act5.mp3             # Chapel scene music
+│       │   └── finale.mp3           # Ending music
+│       └── sfx/                      # Sound effects
 ├── .kiro/
 │   ├── hooks/                        # Agent hook configs
 │   ├── settings/mcp.json            # MCP server configs

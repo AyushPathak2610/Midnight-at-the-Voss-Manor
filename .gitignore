@@ -6,3 +6,14 @@ node_modules/
 .DS_Store
 dist/
 build/
+
+# Hackathon submission materials and internal notes (not needed for public repo)
+SOCIAL_MEDIA_POST.md
+DEVTO_BLOG_POST.md
+HACKATHON_EVALUATION.md
+HOW_KIRO_WAS_USED.md
+JUDGES_PITCH.md
+KIRO_DIRECTORY_UPDATE.md
+SUBMISSION_SUMMARY.md
+AUDIO_VOLUME_ADJUSTMENT.md
+convert-to-pdf.bat
