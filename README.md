@@ -84,17 +84,24 @@ Each ghost is a **separate AI agent** powered by Groq with unique personality:
 
 ---
 
-## 🔮 How Agent Debates Work
+## 🔮 How the AI System Works
 
-When you click **"Ask Ghosts for Hint"** during a puzzle:
+### Individual Ghost Hints (Scenes 1-4)
+When you click **"Ask for Hint"** during puzzles:
+- The scene's ghost (Elara, Harlan, Mira, or Theo) responds via Groq API
+- Each generates a unique personal story + helpful hint
+- Stories vary each time, making hints feel fresh
+- Spoken with unique Azure TTS voices (if configured)
 
-1. All 5 agents are invoked **in parallel** via Groq API (llama-3.3-70b-versatile)
-2. Each responds based on their unique personality (under 30 words)
+### 5-Agent Debate (Chapel Scene)
+In the final Chapel scene, all 5 agents debate together:
+1. All 5 agents invoked **in parallel** via Groq API (llama-3.3-70b-versatile)
+2. Each responds based on their unique personality
 3. Agents can **disagree** — Mira wants play, Harlan wants logic, Selene demands truth
-4. Elara synthesizes a **consensus hint** from all perspectives
-5. Responses are spoken with unique Azure TTS voices (if configured)
+4. Elara synthesizes a **consensus** from all perspectives
+5. Real-time debate visible to player
 
-**The magic:** 5 agents with different personalities debating in real-time, never the same conversation twice.
+**The magic:** Each ghost has their own voice throughout, culminating in a family debate that's never the same twice.
 
 ## 📜 Vow Verification System
 
@@ -111,39 +118,42 @@ When you click **"Ask Ghosts for Hint"** during a puzzle:
 
 ### 1. Intro - The Forest
 Cinematic entrance. Lost in a storm, you find the mansion.  
-**Visuals:** 4 Gemini-generated gothic forest scenes  
+**Visuals:** 5 Gemini-generated gothic forest scenes  
 **Music:** Suno AI atmospheric intro theme
 
 ### 2. Foyer - Elara's Domain
-**Puzzle:** Harlan's Threads (match family photos to memory categories)  
+**Puzzle:** Tapestry Matching (match family photos to emotions)  
 **Ghost:** Elara (Mother) introduces the family's tragedy  
-**Visuals:** 4 Gemini-generated foyer scenes with tapestry  
-**Music:** Suno AI Act 1 score (maternal, melancholic)
+**Hint System:** Elara shares personal stories + puzzle hints via Groq API  
+**Visuals:** 5 Gemini-generated foyer scenes with tapestry  
+**Music:** Suno AI Act 1-4 score (maternal, melancholic)
 
 ### 3. Study - Harlan's Lab
 **Puzzle:** Neural Maze (navigate fragmented memories)  
 **Ghost:** Dr. Harlan Voss explains the Eternal Harmony experiment  
-**Visuals:** 3 Gemini-generated cyberpunk lab scenes  
-**Music:** Suno AI Act 2 score (scientific, glitchy)
+**Hint System:** Harlan provides logical analysis + hints via Groq API  
+**Visuals:** 4 Gemini-generated cyberpunk lab scenes  
+**Music:** Act 1-4 score continues (scientific, glitchy)
 
-### 3. Nursery - Mira's Room
+### 4. Nursery - Mira's Room
 **Puzzle:** Love Harvest (connect memories to family tree)  
 **Ghost:** Mira (Daughter) wants to remember happy times  
-**Visuals:** 3 Gemini-generated nursery scenes with floating toys  
+**Hint System:** Mira shares childlike memories + hints via Groq API  
+**Visuals:** 4 Gemini-generated nursery scenes with floating toys  
 **Music:** Act 1-4 score continues (playful, haunting)
 
-### 4. Hallway - Theo & Selene
+### 5. Hallway - Theo & Selene
 **Puzzle:** Rose Door-Unlock Maze (answer questions about love and forgiveness)  
 **Ghosts:** Theo and Selene reunite through thorny walls  
-**Special Feature:** "Check Theo's Vow" button queries The Eternal Record  
-**Visuals:** 5 Gemini-generated hallway scenes with thorny vines and locked door  
+**Special Feature:** "Check Theo's Vow" button queries The Eternal Record (MCP-powered)  
+**Visuals:** 6 Gemini-generated hallway scenes with thorny vines and locked door  
 **Music:** Act 1-4 score continues (romantic, regretful)
 
-### 5. Chapel - The Reunion
+### 6. Chapel - The Reunion
 **Final Scene:** All 5 ghosts reunite and find peace together  
 **Puzzle:** Vow Ritual (complete the binding ceremony)  
-**Debate:** Family reflects on their journey through AI discussion  
-**Visuals:** 4 Gemini-generated chapel scenes with stained glass  
+**5-Agent Debate:** Family reflects on their journey - all 5 agents debate via Groq API  
+**Visuals:** 5 Gemini-generated chapel scenes with stained glass  
 **Music:** Act 5 score transitions to Finale (hopeful, transcendent)
 
 ---

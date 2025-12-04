@@ -39,17 +39,18 @@ GROQ_API_KEY=gsk_your-actual-key-here
 
 1. Click through intro scene
 2. Meet Elara in the foyer
-3. Click **"Ask Ghosts for Hint"**
-4. Watch all 5 ghosts debate in real-time!
+3. Click **"Ask for Hint"** - Elara shares a personal story
+4. Progress to Chapel scene to see all 5 ghosts debate together!
 
 ---
 
-## What You're Seeing
+## What You're Experiencing
 
 - **5 independent AI agents** powered by Groq's Llama 3.3-70b
-- **Real-time debate** (not pre-scripted, never the same twice)
+- **Individual ghost hints** in each scene (unique stories every time)
+- **5-agent debate** in the final Chapel scene (all ghosts discuss together)
 - **Unique personalities** (Elara is maternal, Harlan is logical, Mira is childlike)
-- **Emergent storytelling** (agents genuinely disagree with each other)
+- **Emergent storytelling** (never the same twice)
 
 ---
 

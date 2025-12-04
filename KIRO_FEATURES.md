@@ -6,7 +6,7 @@
 
 ## 🎯 Project Overview
 
-Midnight at the Voss Manor is a gothic ghost story where **5 independent AI agents** (powered by Groq) debate in real-time to help players solve puzzles. Each ghost has a unique personality, and they genuinely disagree with each other—creating emergent storytelling that's never the same twice.
+Midnight at the Voss Manor is a gothic ghost story where **5 independent AI agents** (powered by Groq) guide players through puzzles. Each ghost has a unique personality and provides hints in their scene. In the climactic Chapel finale, all 5 agents debate together in real-time, creating emergent storytelling that's never the same twice.
 
 **The Frankenstein Twist:** Each agent was built using a DIFFERENT Kiro development approach, yet they work together as one coherent family.
 
@@ -41,12 +41,12 @@ elara: {
 
 ### Most Impressive Generation
 The entire `FoyerScene.tsx` component (200+ lines) was generated from:
-> "Create a scene where Elara introduces herself, shows a tapestry puzzle, and triggers a ghost debate when the player asks for hints"
+> "Create a scene where Elara introduces herself, shows a tapestry puzzle, and provides hints when the player asks"
 
 Kiro understood:
 - Emotional tone (maternal, gentle)
 - React hooks for state management
-- Debate system integration
+- Character hint system integration (Groq API)
 - Puzzle logic with visual feedback
 
 ### Why Vibe Coding Worked
@@ -86,15 +86,14 @@ harlan: {
 | **Best For** | Emotions, creativity | Logic, technical systems |
 
 ### Process Improvement
-Spec-driven forced us to think through agent interactions upfront. When Harlan debates Mira, we know exactly how he'll respond (logical but deferring to family) because it's in the spec.
+Spec-driven forced us to think through agent personalities upfront. When Harlan provides hints, we know exactly how he'll respond (logical but deferring to family) because it's in the spec.
 
-**Example Debate:**
+**Example Hint (Study Scene):**
 ```
-Mira: "The happy ones! Like when we played!"
-Harlan: "I... I struggle to recall. But logic suggests categories matter."
+Harlan: "I... I struggle to recall the exact path. But logic suggests following the neural patterns. The glitches represent fragmented memories - avoid them."
 ```
 
-Harlan's uncertainty is SPECIFIED, not emergent. This consistency is crucial for 5-agent debates.
+Harlan's uncertainty is SPECIFIED, not emergent. This consistency is crucial when all 5 agents debate together in the Chapel scene.
 
 ---
 
@@ -171,15 +170,30 @@ Each agent was built DIFFERENTLY, yet they work together:
 
 ---
 
-## 5. 🤖 Real-Time Multi-Agent System
+## 5. 🤖 Multi-Agent System
 
-### Architecture
+### Individual Ghost Hints (Scenes 2-5)
+**Files:** `app/api/character-hint/route.ts`, Scene components
+
+Each scene features one ghost who provides personalized hints:
+- **Foyer:** Elara shares maternal stories + puzzle hints
+- **Study:** Harlan provides logical analysis + hints
+- **Nursery:** Mira shares childlike memories + hints
+- **Hallway:** Theo gives dramatic guidance
+
+Each hint includes:
+1. Unique personal story (varies each time via Groq API)
+2. Helpful puzzle hint (consistent)
+
+### 5-Agent Debate (Chapel Scene Only)
 **File:** `app/api/ghost-debate/route.ts`
+
+In the climactic Chapel scene, all 5 agents debate together:
 
 ```typescript
 // Invoke all 5 agents in parallel
 const debatePromises = Object.keys(GHOST_AGENTS).map(async (ghostName) => {
-  const context = `Puzzle: ${puzzleContext}\nPlayer asks: ${playerMessage}`
+  const context = `Family decision: ${puzzleContext}\nPlayer asks: ${playerMessage}`
   const response = await invokeGhostAgent(ghostName, context, apiKey)
   return { ghost: GHOST_AGENTS[ghostName].name, message: response }
 })
@@ -188,7 +202,7 @@ const debate = await Promise.all(debatePromises)
 
 // Elara synthesizes consensus
 const consensus = await invokeGhostAgent('elara', 
-  `Based on this debate:\n${debate}\n\nProvide a single consensus hint:`,
+  `Based on this debate:\n${debate}\n\nProvide family consensus:`,
   apiKey
 )
 ```
@@ -198,18 +212,19 @@ const consensus = await invokeGhostAgent('elara',
 - **Independent responses** (agents don't see each other's answers)
 - **Real-time synthesis** (Elara creates consensus from all perspectives)
 - **Never the same twice** (temperature=0.8 for variability)
+- **Climactic moment** (all ghosts together for first time)
 
-### Example Debate
-**Puzzle:** Match family photos to memory categories
+### Example Chapel Debate
+**Decision:** Should the family ascend or stay together?
 
 **Responses:**
-- Elara: "Focus on love and emotional memories, dear one."
-- Harlan: "I... categories. Logic. But family transcends data."
-- Mira: "The happy ones! When we played together!"
-- Theo: "Your family moments define you, brother."
-- Selene: "Truth matters. Match honestly, not hopefully."
+- Elara: "Together, always. That's what family means."
+- Harlan: "Logic suggests ascension, but... family transcends logic."
+- Mira: "I don't want to be alone! Stay together!"
+- Theo: "Redemption means facing consequences together."
+- Selene: "We're stronger united than apart."
 
-**Consensus (Elara):** "Look for the emotional connections in each photo—love, joy, and family bonds will guide you."
+**Consensus (Elara):** "We choose to stay together. Our bond is stronger than any promise of peace."
 
 ---
 
@@ -516,6 +531,6 @@ cp .env.example .env
 npm run dev
 ```
 
-Click "Ask Ghosts for Hint" and watch 5 AI agents debate in real-time.
+Play through to the Chapel scene and watch 5 AI agents debate together in real-time.
 
 **This is the Frankenstein chimera: Incompatible parts that shouldn't work together, but do—and create something unexpectedly powerful.**
