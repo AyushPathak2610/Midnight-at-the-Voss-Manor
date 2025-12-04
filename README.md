@@ -204,14 +204,11 @@ midnight-at-the-voss-manor/
 │       │   └── finale.mp3           # Ending music
 │       └── sfx/                      # Sound effects
 ├── .kiro/
-│   ├── hooks/                        # Agent hook configs
-│   ├── settings/mcp.json            # MCP server configs
-│   ├── specs/ghost-agents/          # Spec-driven docs
-│   └── steering/                     # AI personality rules
-└── docs/
-    ├── API_KEYS_GUIDE.md            # Detailed setup instructions
-    ├── MCP_SETUP.md                 # MCP configuration guide
-    └── TTS_GUIDE.md                 # Voice setup guide
+    ├── hooks/                        # Agent hook configs
+    ├── settings/mcp.json            # MCP server configs
+    ├── specs/ghost-agents/          # Spec-driven docs
+    └── steering/                     # AI personality rules
+
 ```
 
 ---
@@ -237,21 +234,6 @@ NEXT_PUBLIC_AZURE_TTS_REGION=eastus
 - Theo: Dramatic, regretful
 - Selene: Cold, elegant, commanding
 - Narrator: Professional storytelling voice
-
-**Without Azure TTS**: Browser's built-in TTS is used (still works, just less expressive)
-
----
-
-## 🎬 Demo Video Script
-
-**Perfect for hackathon submission:**
-
-1. **0:00-0:15** - Intro cinematic (show gothic-cyberpunk art style)
-2. **0:15-0:45** - Foyer puzzle + trigger first debate (show all 5 agents responding)
-3. **0:45-1:00** - Mira's crayon drawing auto-generated via MCP hook
-4. **1:00-1:15** - Harlan's memory storage hook triggered on puzzle complete
-5. **1:15-1:45** - Chapel final debate (unscripted 5-agent conversation)
-6. **1:45-2:00** - Ending + credits showing Kiro features used
 
 ---
 
@@ -282,38 +264,6 @@ NEXT_PUBLIC_AZURE_TTS_REGION=eastus
 - **[QUICKSTART.md](./QUICKSTART.md)** - 5-minute setup guide
 - **[.kiro/steering/](./kiro/steering/)** - Personality rules and scene templates
 - **[.kiro/specs/](./kiro/specs/)** - Spec-driven development docs
-
----
-
-## 🐛 Troubleshooting
-
-### "Missing GROQ_API_KEY" error
-Make sure you copied `.env.example` to `.env` and added your actual key.
-
-### Agents not responding
-Check your Groq API key is valid at [console.groq.com](https://console.groq.com)
-
-### MCP extensions not working
-They're optional! The game works great without them. See [MCP_SETUP.md](./docs/MCP_SETUP.md) for detailed setup.
-
-### Voice not working
-Azure TTS is optional. The game works with browser TTS if Azure keys aren't configured.
-
----
-
-## 🤝 Contributing
-
-This is a hackathon project, but feel free to:
-- Add new ghost personalities
-- Create additional puzzles
-- Improve the debate system
-- Add more MCP extensions
-
----
-
-## 📜 License
-
-MIT License - Built for Kiro Frankenstein Hackathon 2024
 
 ---
 
