@@ -4,6 +4,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Midnight at the Voss Manor - A Ghost Story in Five Acts',
   description: 'Five AI ghosts trapped in a mansion, their memories scattered. Help them remember, solve puzzles, and uncover the tragic truth.',
+  icons: {
+    icon: '/images/icon_kiro.png',
+  },
 }
 
 export default function RootLayout({
